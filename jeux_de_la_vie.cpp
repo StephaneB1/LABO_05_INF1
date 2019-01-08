@@ -58,6 +58,24 @@ void simulation() {
       //Ici utiliser la classe Vector nous simplifierait la tâche
       copieTableau(tableauPresent, tableauFutur, HAUTEUR_TABLEAU, LARGEUR_TABLEAU);
    }
+const unsigned VIE = 3; //TODO intervalle
+const size_t TABLEAU_X = 11;
+const size_t TABLEAU_Y = 10;
+
+unsigned occ(bool tab[], size_t tab_x_max, size_t tab_y_max ,size_t x, size_t y){
+   unsigned nb_cases_voisines = 0;
+   //TODO check limites
+   // check à gauche
+   // check à droite
+   // check bas
+   // check haut
+   
+   return nb_cases_voisines;
+   
+}
+
+void simulation(){
+   
 }
 
 void copieTableau(bool tableau1[][LARGEUR_TABLEAU], bool tableau2[][LARGEUR_TABLEAU], unsigned hauteur, unsigned largeur) {
