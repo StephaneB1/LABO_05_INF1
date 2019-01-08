@@ -15,14 +15,16 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <algorithm>
 #include "jeux_de_la_vie.h"
 
 using namespace std;
 
+
+
 void simulation() {
 
-   const int HAUTEUR_TABLEAU = 11;
-   const int LARGEUR_TABLEAU = 10;
+
    bool tableauPresent[][10] = {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -40,8 +42,8 @@ void simulation() {
    bool tableauFutur[HAUTEUR_TABLEAU][LARGEUR_TABLEAU];
 
    while (true) {
-      //afficher tableauPresent
-      for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) {
+      //TODO donction pour afficher tableauPresent
+      for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) { //petit affichage de tableau utilisé pour tests
          for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
             cout << tableauPresent[i][j];
          }
@@ -50,14 +52,19 @@ void simulation() {
 
       for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) {
          for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
-            tableauFutur[i][j] = 0; //la fonction qui me dit quoi mettre dans le tableauFutur
+            tableauFutur[i][j] = 0; //TODO la fonction qui me dit quoi mettre dans le tableauFutur
          }
       }
+      //Ici utiliser la classe Vector nous simplifierait la tâche
+      copieTableau(tableauPresent, tableauFutur, HAUTEUR_TABLEAU, LARGEUR_TABLEAU);
+   }
+}
 
-      for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) {
-         for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
-            tableauPresent[i][j] = tableauFutur[i][j];
-         }
+void copieTableau(bool tableau1[][LARGEUR_TABLEAU], bool tableau2[][LARGEUR_TABLEAU], unsigned hauteur, unsigned largeur) {
+
+   for (unsigned i = 0; i < hauteur; i++) {
+      for (unsigned j = 0; j < largeur; j++) {
+         tableau1[i][j] = tableau2[i][j];
       }
    }
 }
