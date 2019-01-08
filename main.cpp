@@ -1,25 +1,31 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+ -----------------------------------------------------------------------------------
+ Laboratoire : 05
+ Fichier     : main.cpp
+ Auteur(s)   : <prÈnom> <nom>
+ Date        : <jj.mm.aaaa>
 
-/* 
- * File:   main.cpp
- * Author: toufik
- *
- * Created on January 8, 2019, 1:57 PM
- */
+ But         : <à competer>
+
+ Remarque(s) : <à completer>
+
+ Compilateur : MinGW-g++ <x.y.z>
+ -----------------------------------------------------------------------------------
+*/
+
 
 #include <cstdlib>
+#include <iostream>
+#include "jeux_de_la_vie.h"
 
 using namespace std;
 
-/*
- * 
- */
-int main(int argc, char** argv) {
+int main() {
 
-   return 0;
+   
+   cout << "Appuyez sur une touche pour continuer... ";
+   cin.get();
+
+   return EXIT_SUCCESS;
 }
 
