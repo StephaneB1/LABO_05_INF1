@@ -18,7 +18,7 @@ void afficherTableau(const std::vector<std::vector<bool>>& tableau);
 
 bool etatFutur(const std::vector<std::vector<bool>>& tableau, unsigned i, unsigned j);
 
-unsigned occ(const std::vector<std::vector<bool>>& tableau, size_t x, size_t y);
+unsigned occ(const std::vector < std::vector<bool>>&tableau, unsigned x, unsigned y);
 
 #endif /* JEUX_DE_LA_VIE_H */
 
