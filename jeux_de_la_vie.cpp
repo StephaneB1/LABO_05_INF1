@@ -17,6 +17,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <windows.h>
 #include "jeux_de_la_vie.h"
 
 using namespace std;
@@ -50,6 +51,8 @@ void simulation() {
       }
       //Ici utiliser la classe Vector nous simplifierait la tâche
       tableauPresent = tableauFutur;
+      
+      Sleep(1000);
    }
 }
 
