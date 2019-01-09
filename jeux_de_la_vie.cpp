@@ -17,14 +17,15 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <windows.h>
 #include "jeux_de_la_vie.h"
 
 using namespace std;
 
 void simulation() {
 
-   vector < vector<bool>> tableauPresent = {
+   const unsigned nombreGenerations = 11;
+   
+   vector <vector<bool>> tableauPresent = {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -37,22 +38,20 @@ void simulation() {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
    };
 
-   vector < vector<bool>> tableauFutur(tableauPresent.size(),vector<bool>(tableauPresent[0].size()));
+   vector <vector<bool>> tableauFutur(tableauPresent.size(), vector<bool>(tableauPresent[0].size()));
 
-   while (true) {
+   for (unsigned n = 0; n < nombreGenerations; n++) {
       //TODO fonction pour afficher tableauPresent
       afficherTableau(tableauPresent);
       cout << endl;
 
       for (unsigned i = 0; i < tableauPresent.size(); i++) {
          for (unsigned j = 0; j < tableauPresent[0].size(); j++) {
-            tableauFutur[i][j] = etatFutur(tableauPresent, i, j); 
+            tableauFutur[i][j] = etatFutur(tableauPresent, i, j);
          }
       }
       //Ici utiliser la classe Vector nous simplifierait la tâche
       tableauPresent = tableauFutur;
-      
-      Sleep(1000);
    }
 }
 
