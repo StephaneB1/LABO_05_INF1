@@ -36,7 +36,7 @@ void simulation() {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
    };
 
-   vector < vector<bool>> tableauFutur;
+   vector < vector<bool>> tableauFutur = tableauPresent;
 
    while (true) {
       //TODO fonction pour afficher tableauPresent
@@ -45,7 +45,7 @@ void simulation() {
 
       for (unsigned i = 0; i < tableauPresent.size(); i++) {
          for (unsigned j = 0; j < tableauPresent[0].size(); j++) {
-            tableauFutur[i][j] = etatFutur(tableauPresent, i, j); //TODO la fonction qui me dit quoi mettre dans le tableauFutur
+            tableauFutur[i][j] = etatFutur(tableauPresent, i, j); 
          }
       }
       //Ici utiliser la classe Vector nous simplifierait la tâche
