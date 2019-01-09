@@ -22,7 +22,7 @@ using namespace std;
 
 int main() {
 
-   simulation();
+   simulation(11);
    cout << "Appuyez sur une touche pour continuer... ";
    cin.get();
 

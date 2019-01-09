@@ -21,13 +21,17 @@
 
 using namespace std;
 
+void afficherTableau(const vector<vector<bool>>& tableau);
 
-bool etatFutur(const vector < vector<bool>>&tableau, unsigned i, unsigned j);
+bool etatFutur(const std::vector<vector<bool>>& tableau, unsigned i, unsigned j);
+
+unsigned occ(const vector < std::vector<bool>>&tableau, unsigned x, unsigned y);
+
 bool contains(vector<int> const &V, const int &x);
 
-void simulation() {
-   
-   const unsigned nombreGenerations = 11;
+const unsigned NOMBRE_CASES_VOISINES = 8;
+
+void simulation(unsigned nombreSimulations) {
    
    vector <vector<bool>> tableauPresent = {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -44,7 +48,7 @@ void simulation() {
 
    vector <vector<bool>> tableauFutur(tableauPresent.size(), vector<bool>(tableauPresent[0].size()));
 
-   for (unsigned n = 1; n <= nombreGenerations; n++) {
+   for (unsigned n = 1; n <= nombreSimulations; n++) {
       //TODO fonction pour afficher tableauPresent
       cout << "Génération : " << n << endl;
       afficherTableau(tableauPresent);
@@ -66,11 +70,11 @@ unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y){
    int dx[8] = {1, -1, 0,  0, 1,  1, -1, -1};
    int dy[8] = {0,  0, 1, -1, 1, -1,  1, -1};
    
-   for(int i = 0; i < 8; ++i){
+   for(int i = 0; i < (int) NOMBRE_CASES_VOISINES; ++i){
       nx = (int) x + dx[i];
       ny = (int) y + dy[i];
       if (nx < (int) tableau[0].size() && nx >= 0 && ny >= 0 && ny < (int) tableau.size()) {
-         if (tableau[ny][nx] == 1) {
+         if (tableau[(size_t)ny][(size_t)nx] == 1) {
             nb_cases_voisines++;
          }
       }
@@ -85,10 +89,9 @@ void afficherTableau(const vector < vector<bool>>&tableau) {
       }
       cout << endl;
    }
-   
 }
 
-bool estDansIntervalle(const vector<int> &V, const unsigned val){
+bool estDansIntervalle(const vector<unsigned> &V, const unsigned val){
    for(auto i = V.begin(); i != V.end(); ++i){
       if(val == *i){
          return true;
@@ -100,10 +103,11 @@ bool estDansIntervalle(const vector<int> &V, const unsigned val){
 bool etatFutur(const vector < vector<bool>>&tableau, unsigned i, unsigned j) {
    unsigned occurences = occ(tableau, j,i);
    if (tableau[i][j]) {
-      return estDansIntervalle(NAISSANCE, occurences) || estDansIntervalle(SURVIS, occurences) ? 1 : 0 ;
+      return estDansIntervalle(REGLE_NAISSANCE, occurences) || 
+             estDansIntervalle(REGLE_SURVIS, occurences) ? 1 : 0 ;
       
    } else {
-      return estDansIntervalle(NAISSANCE, occurences) ? 1 : 0;
-      //return (occurences == 3) ? 1 : 0;
+      return estDansIntervalle(REGLE_NAISSANCE, occurences) ? 1 : 0;
+ 
    }
 }
