@@ -16,44 +16,44 @@
 #include <cstdlib>
 #include <iostream>
 #include <algorithm>
+#include <vector>
 #include "jeux_de_la_vie.h"
 
 using namespace std;
 
 void simulation() {
 
-   bool tableauPresent[][10] = {
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-      {0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+   vector < vector<bool>> tableauPresent = {
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
    };
 
-   bool tableauFutur[HAUTEUR_TABLEAU][LARGEUR_TABLEAU];
+   vector < vector<bool>> tableauFutur;
 
    while (true) {
       //TODO fonction pour afficher tableauPresent
       afficherTableau(tableauPresent);
       cout << endl;
 
-      for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) {
-         for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
+      for (unsigned i = 0; i < tableauPresent.size(); i++) {
+         for (unsigned j = 0; j < tableauPresent[0].size(); j++) {
             tableauFutur[i][j] = etatFutur(tableauPresent, i, j); //TODO la fonction qui me dit quoi mettre dans le tableauFutur
          }
       }
       //Ici utiliser la classe Vector nous simplifierait la tâche
-      copieTableau(tableauPresent, tableauFutur);
+      tableauPresent = tableauFutur;
    }
 }
 
-unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y) {
+unsigned occ(const vector < vector<bool>>&tableau, size_t x, size_t y) {
 
    int dx[8] = {1, -1, 0, 0, 1, 1, -1, -1};
    int dy[8] = {0, 0, 1, -1, 1, -1, 1, -1};
@@ -63,8 +63,8 @@ unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y) {
    for (int i = 0; i < 8; ++i) {
       nx = x + dx[i];
       ny = y + dy[i];
-      if (nx < LARGEUR_TABLEAU && nx >= 0 && ny >= 0 && ny < HAUTEUR_TABLEAU) {
-         if (tab[ny][nx] == 1) {
+      if (nx < tableau[0].size() && nx >= 0 && ny >= 0 && ny < tableau.size()) {
+         if (tableau[ny][nx] == 1) {
             nb_cases_voisines++;
          }
       }
@@ -72,30 +72,21 @@ unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y) {
    return nb_cases_voisines;
 }
 
-void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]) {
-   for (size_t i = 0; i < HAUTEUR_TABLEAU; i++) {
-      for (size_t j = 0; j < LARGEUR_TABLEAU; j++) {
+void afficherTableau(const vector < vector<bool>>&tableau) {
+   for (size_t i = 0; i < tableau.size(); i++) {
+      for (size_t j = 0; j < tableau[0].size(); j++) {
          cout << (tableau[i][j] ? " X " : " . ");
       }
       cout << endl;
    }
 }
 
-bool etatFutur(bool tableau[][LARGEUR_TABLEAU], unsigned i, unsigned j) {
-   unsigned occurences = occ(tableau, j,i);
+bool etatFutur(const vector < vector<bool>>&tableau, unsigned i, unsigned j) {
+   unsigned occurences = occ(tableau, j, i);
 
-   if (tableau[i][j]==1) {
+   if (tableau[i][j] == 1) {
       return (occurences == 2 || occurences == 3) ? 1 : 0;
    } else {
       return (occurences == 3) ? 1 : 0;
-   }
-}
-
-void copieTableau(bool tableau1[][LARGEUR_TABLEAU], bool tableau2[][LARGEUR_TABLEAU]) {
-
-   for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) {
-      for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
-         tableau1[i][j] = tableau2[i][j];
-      }
    }
 }

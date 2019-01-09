@@ -1,28 +1,18 @@
 #ifndef JEUX_DE_LA_VIE_H
 #define JEUX_DE_LA_VIE_H
 
-const size_t HAUTEUR_TABLEAU = 11;
-const size_t LARGEUR_TABLEAU = 10;
+#include <vector>
 
 /**
  * @brief Gère la simulation
  */
 void simulation();
 
-/**
- * @brief Permet de copier un tableau dans un autre
- * @param tableau1 : tableau cible
- * @param tableau2 : tableau copié
- * @param hauteur
- * @param largeur
- */
-void copieTableau(bool tableau1[][LARGEUR_TABLEAU],bool tableau2[][LARGEUR_TABLEAU]);
+void afficherTableau(const std::vector<std::vector<bool>>& tableau);
 
-void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]);
+bool etatFutur(const std::vector<std::vector<bool>>& tableau, unsigned i, unsigned j);
 
-bool etatFutur(bool tableau[][LARGEUR_TABLEAU],unsigned i,unsigned j);
-
-unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y);
+unsigned occ(const std::vector<std::vector<bool>>& tableau, size_t x, size_t y);
 
 #endif /* JEUX_DE_LA_VIE_H */
 
