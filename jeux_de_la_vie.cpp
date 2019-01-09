@@ -40,8 +40,9 @@ void simulation() {
 
    vector <vector<bool>> tableauFutur(tableauPresent.size(), vector<bool>(tableauPresent[0].size()));
 
-   for (unsigned n = 0; n < nombreGenerations; n++) {
+   for (unsigned n = 1; n <= nombreGenerations; n++) {
       //TODO fonction pour afficher tableauPresent
+      cout << "Generation: " << n << endl;
       afficherTableau(tableauPresent);
       cout << endl;
 
