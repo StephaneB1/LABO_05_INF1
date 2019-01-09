@@ -57,7 +57,7 @@ void simulation() {
    }
 }
 
-bool estDansIntervalle(const vector<int> &V, const int val){
+bool estDansIntervalle(const vector<int> &V, const unsigned val){
    for(auto i = V.begin(); i != V.end(); ++i){
       if(val == *i){
          return true;
@@ -74,9 +74,9 @@ unsigned occ(const bool tab[][LARGEUR_TABLEAU], unsigned x, unsigned y){
    int dy[8] = {0,  0, 1, -1, 1, -1,  1, -1};
    
    for(int i = 0; i < 8; ++i){
-      nx = x + dx[i];
-      ny = y + dy[i];
-      if (nx < LARGEUR_TABLEAU && nx >= 0 && ny >= 0 && ny < HAUTEUR_TABLEAU) {
+      nx = (int) x + dx[i];
+      ny = (int) y + dy[i];
+      if (nx < (int) LARGEUR_TABLEAU && nx >= 0 && ny >= 0 && ny < (int) HAUTEUR_TABLEAU) {
          if (tab[ny][nx] == 1) {
             nb_cases_voisines++;
          }
