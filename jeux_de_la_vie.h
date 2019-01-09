@@ -22,7 +22,7 @@ void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]);
 
 bool etatFutur(bool tableau[][LARGEUR_TABLEAU],unsigned i,unsigned j);
 
-unsigned occ(bool tableau[][LARGEUR_TABLEAU], unsigned x, unsigned y);
+unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y);
 
 #endif /* JEUX_DE_LA_VIE_H */
 

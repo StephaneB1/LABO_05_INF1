@@ -53,35 +53,23 @@ void simulation() {
    }
 }
 
-unsigned occ(bool tableau[][LARGEUR_TABLEAU], unsigned x, unsigned y) {
+unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y) {
 
-   unsigned colonnesVoisines = (y == 0 || y == LARGEUR_TABLEAU - 1) ? 2 : 3;
-   unsigned lignesVoisines = (x == 0 || x == HAUTEUR_TABLEAU - 1) ? 2 : 3;
-   unsigned occurences = 0;
+   int dx[8] = {1, -1, 0, 0, 1, 1, -1, -1};
+   int dy[8] = {0, 0, 1, -1, 1, -1, 1, -1};
 
-   unsigned startX = x - 1;
-   if (x <= 0) {
-      startX = 0;
-   } else if (x >= LARGEUR_TABLEAU) {
-      startX = LARGEUR_TABLEAU - 2;
-   }
-
-   unsigned startY = y - 1;
-   if (y <= 0) {
-      startY = 0;
-   } else if (y >= HAUTEUR_TABLEAU) {
-      startY = HAUTEUR_TABLEAU - 1;
-   }
-
-   for (unsigned col = startY; col < startY + colonnesVoisines; col++) {
-      for (unsigned lig = startX; lig < startX + lignesVoisines; lig++) {
-         if (tableau[col][lig] && !(lig == x && col == y)) {
-            occurences++;
+   unsigned nb_cases_voisines = 0;
+   int nx, ny;
+   for (int i = 0; i < 8; ++i) {
+      nx = x + dx[i];
+      ny = y + dy[i];
+      if (nx < LARGEUR_TABLEAU && nx >= 0 && ny >= 0 && ny < HAUTEUR_TABLEAU) {
+         if (tab[ny][nx] == 1) {
+            nb_cases_voisines++;
          }
       }
    }
-   cout << occurences<< " ";
-   return occurences;
+   return nb_cases_voisines;
 }
 
 void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]) {
