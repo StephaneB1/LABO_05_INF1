@@ -1,0 +1,13 @@
+nbproject/private/
+nbproject
+build/
+nbbuild/
+dist/
+nbdist/
+.vscode/
+.nb-gradle/
+/dist/
+/build/
+.idea
+Makefile
+.dep.inc

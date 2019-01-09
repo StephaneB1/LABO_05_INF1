@@ -20,7 +20,7 @@
 
 using namespace std;
 
-
+unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y);
 
 void simulation() {
 
@@ -59,6 +59,29 @@ void simulation() {
       copieTableau(tableauPresent, tableauFutur, HAUTEUR_TABLEAU, LARGEUR_TABLEAU);
    }
 }
+const unsigned VIE = 3; //TODO intervalle
+
+unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y){
+   
+   int dx[8] = {1, -1, 0,  0, 1,  1, -1, -1};
+   int dy[8] = {0,  0, 1, -1, 1, -1,  1, -1};
+   
+   unsigned nb_cases_voisines = 0;
+   int nx, ny;
+   for(int i = 0; i < 8; ++i){
+      nx = x + dx[i];
+      ny = y + dy[i];
+      if(nx < LARGEUR_TABLEAU && nx >= 0 && ny >= 0 && ny < HAUTEUR_TABLEAU){
+         if(tab[ny][nx] == 1){
+            nb_cases_voisines++;
+         }
+      }
+   }
+   
+   return nb_cases_voisines;
+   
+}
+
 
 void copieTableau(bool tableau1[][LARGEUR_TABLEAU], bool tableau2[][LARGEUR_TABLEAU], unsigned hauteur, unsigned largeur) {
 
