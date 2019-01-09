@@ -20,10 +20,7 @@
 
 using namespace std;
 
-unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y);
-
 void simulation() {
-
 
    bool tableauPresent[][10] = {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -48,33 +45,43 @@ void simulation() {
 
       for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) {
          for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
-            tableauFutur[i][j] = 0; //TODO la fonction qui me dit quoi mettre dans le tableauFutur
+            tableauFutur[i][j] = etatFutur(tableauPresent, i, j); //TODO la fonction qui me dit quoi mettre dans le tableauFutur
          }
       }
       //Ici utiliser la classe Vector nous simplifierait la tâche
-      copieTableau(tableauPresent, tableauFutur, HAUTEUR_TABLEAU, LARGEUR_TABLEAU);
+      copieTableau(tableauPresent, tableauFutur);
    }
 }
 
-const unsigned VIE = 3; //TODO intervalle
+unsigned occ(bool tableau[][LARGEUR_TABLEAU], unsigned x, unsigned y) {
 
-unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y) {
+   unsigned colonnesVoisines = (y == 0 || y == LARGEUR_TABLEAU - 1) ? 2 : 3;
+   unsigned lignesVoisines = (x == 0 || x == HAUTEUR_TABLEAU - 1) ? 2 : 3;
+   unsigned occurences = 0;
 
-   int dx[8] = {1, -1, 0, 0, 1, 1, -1, -1};
-   int dy[8] = {0, 0, 1, -1, 1, -1, 1, -1};
+   unsigned startX = x - 1;
+   if (x <= 0) {
+      startX = 0;
+   } else if (x >= LARGEUR_TABLEAU) {
+      startX = LARGEUR_TABLEAU - 2;
+   }
 
-   unsigned nb_cases_voisines = 0;
-   int nx, ny;
-   for (int i = 0; i < 8; ++i) {
-      nx = x + dx[i];
-      ny = y + dy[i];
-      if (nx < LARGEUR_TABLEAU && nx >= 0 && ny >= 0 && ny < HAUTEUR_TABLEAU) {
-         if (tab[ny][nx] == 1) {
-            nb_cases_voisines++;
+   unsigned startY = y - 1;
+   if (y <= 0) {
+      startY = 0;
+   } else if (y >= HAUTEUR_TABLEAU) {
+      startY = HAUTEUR_TABLEAU - 1;
+   }
+
+   for (unsigned col = startY; col < startY + colonnesVoisines; col++) {
+      for (unsigned lig = startX; lig < startX + lignesVoisines; lig++) {
+         if (tableau[col][lig] && !(lig == x && col == y)) {
+            occurences++;
          }
       }
    }
-   return nb_cases_voisines;
+
+   return occurences;
 }
 
 void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]) {
@@ -86,10 +93,20 @@ void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]) {
    }
 }
 
-void copieTableau(bool tableau1[][LARGEUR_TABLEAU], bool tableau2[][LARGEUR_TABLEAU], unsigned hauteur, unsigned largeur) {
+bool etatFutur(bool tableau[][LARGEUR_TABLEAU], unsigned i, unsigned j) {
+   unsigned occurences = occ(tableau, i, j);
 
-   for (unsigned i = 0; i < hauteur; i++) {
-      for (unsigned j = 0; j < largeur; j++) {
+   if (tableau[i][j]) {
+      return (occurences == 2 || occurences == 3) ? 1 : 0;
+   } else {
+      return (occurences == 3) ? 1 : 0;
+   }
+}
+
+void copieTableau(bool tableau1[][LARGEUR_TABLEAU], bool tableau2[][LARGEUR_TABLEAU]) {
+
+   for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) {
+      for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
          tableau1[i][j] = tableau2[i][j];
       }
    }

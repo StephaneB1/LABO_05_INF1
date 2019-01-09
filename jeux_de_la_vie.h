@@ -1,8 +1,8 @@
 #ifndef JEUX_DE_LA_VIE_H
 #define JEUX_DE_LA_VIE_H
 
-const unsigned HAUTEUR_TABLEAU = 11;
-const unsigned LARGEUR_TABLEAU = 10;
+const size_t HAUTEUR_TABLEAU = 11;
+const size_t LARGEUR_TABLEAU = 10;
 
 /**
  * @brief Gère la simulation
@@ -16,9 +16,13 @@ void simulation();
  * @param hauteur
  * @param largeur
  */
-void copieTableau(bool tableau1[][LARGEUR_TABLEAU],bool tableau2[][LARGEUR_TABLEAU], unsigned hauteur, unsigned largeur);
+void copieTableau(bool tableau1[][LARGEUR_TABLEAU],bool tableau2[][LARGEUR_TABLEAU]);
 
 void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]);
+
+bool etatFutur(bool tableau[][LARGEUR_TABLEAU],unsigned i,unsigned j);
+
+unsigned occ(bool tableau[][LARGEUR_TABLEAU], unsigned x, unsigned y);
 
 #endif /* JEUX_DE_LA_VIE_H */
 
