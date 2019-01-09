@@ -7,7 +7,8 @@ const std::vector<unsigned> REGLE_NAISSANCE = {3};
 const std::vector<unsigned> REGLE_SURVIS = {2, 3};
 
 /**
- * @brief Gère la simulation
+ * @brief Gère la simulation du jeu de la vie
+ * @param nombreSimulations : nombre de générations à afficher
  */
 void simulation(unsigned nombreSimulations);
 
