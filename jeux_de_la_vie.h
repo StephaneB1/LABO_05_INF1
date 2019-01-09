@@ -1,8 +1,8 @@
 #ifndef JEUX_DE_LA_VIE_H
 #define JEUX_DE_LA_VIE_H
 
-const size_t HAUTEUR_TABLEAU = 11;
-const size_t LARGEUR_TABLEAU = 10;
+const size_t HAUTEUR_TABLEAU = 10;
+const size_t LARGEUR_TABLEAU = 11;
 
 /**
  * @brief Gère la simulation

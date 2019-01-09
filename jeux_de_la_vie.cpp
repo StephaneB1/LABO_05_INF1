@@ -16,13 +16,14 @@
 #include <cstdlib>
 #include <iostream>
 #include <algorithm>
+#include <windows.h>
 #include "jeux_de_la_vie.h"
 
 using namespace std;
 
 void simulation() {
 
-   bool tableauPresent[][10] = {
+   bool tableauPresent[][LARGEUR_TABLEAU] = {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -49,6 +50,7 @@ void simulation() {
       }
       //Ici utiliser la classe Vector nous simplifierait la tâche
       copieTableau(tableauPresent, tableauFutur);
+      Sleep(1000);
    }
 }
 
