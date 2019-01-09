@@ -16,10 +16,15 @@
 #include <cstdlib>
 #include <iostream>
 #include <algorithm>
+#include <vector>
 #include <windows.h>
 #include "jeux_de_la_vie.h"
 
 using namespace std;
+
+unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y);
+bool etatFutur(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y);
+bool contains(vector<int> const &V, const int &x);
 
 void simulation() {
 
@@ -53,15 +58,21 @@ void simulation() {
       Sleep(1000);
    }
 }
+const vector<int> NAISSANCE = {3};
+const vector<int> SURVIS = {2};
 
-unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y) {
 
-   int dx[8] = {1, -1, 0, 0, 1, 1, -1, -1};
-   int dy[8] = {0, 0, 1, -1, 1, -1, 1, -1};
+bool estDansIntervalle(const vector<int> &V, const int val){
+   return (val >= vector.begin() and val <= vector.end());
+}
 
+unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y){
    unsigned nb_cases_voisines = 0;
    int nx, ny;
-   for (int i = 0; i < 8; ++i) {
+   int dx[8] = {1, -1, 0,  0, 1,  1, -1, -1};
+   int dy[8] = {0,  0, 1, -1, 1, -1,  1, -1};
+   
+   for(int i = 0; i < 8; ++i){
       nx = x + dx[i];
       ny = y + dy[i];
       if (nx < LARGEUR_TABLEAU && nx >= 0 && ny >= 0 && ny < HAUTEUR_TABLEAU) {
