@@ -42,7 +42,7 @@ void simulation() {
    bool tableauFutur[HAUTEUR_TABLEAU][LARGEUR_TABLEAU];
 
    while (true) {
-      //TODO donction pour afficher tableauPresent
+      //TODO fonction pour afficher tableauPresent
       for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) { //petit affichage de tableau utilisé pour tests
          for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
             cout << tableauPresent[i][j];
