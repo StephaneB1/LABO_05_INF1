@@ -80,7 +80,7 @@ unsigned occ(bool tableau[][LARGEUR_TABLEAU], unsigned x, unsigned y) {
          }
       }
    }
-
+   cout << occurences<< " ";
    return occurences;
 }
 
@@ -94,9 +94,9 @@ void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]) {
 }
 
 bool etatFutur(bool tableau[][LARGEUR_TABLEAU], unsigned i, unsigned j) {
-   unsigned occurences = occ(tableau, i, j);
+   unsigned occurences = occ(tableau, j,i);
 
-   if (tableau[i][j]) {
+   if (tableau[i][j]==1) {
       return (occurences == 2 || occurences == 3) ? 1 : 0;
    } else {
       return (occurences == 3) ? 1 : 0;
