@@ -16,8 +16,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <algorithm>
-#include <vector>
-#include <windows.h>
 #include "jeux_de_la_vie.h"
 
 using namespace std;
@@ -55,18 +53,21 @@ void simulation() {
       }
       //Ici utiliser la classe Vector nous simplifierait la tâche
       copieTableau(tableauPresent, tableauFutur);
-      Sleep(1000);
+      //Sleep(1000);
    }
 }
-const vector<int> NAISSANCE = {3};
-const vector<int> SURVIS = {2};
-
 
 bool estDansIntervalle(const vector<int> &V, const int val){
-   return (val >= vector.begin() and val <= vector.end());
+   for(auto i = V.begin(); i != V.end(); ++i){
+      if(val == *i){
+         return true;
+      }
+   }
+   return false;
 }
 
-unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y){
+
+unsigned occ(const bool tab[][LARGEUR_TABLEAU], unsigned x, unsigned y){
    unsigned nb_cases_voisines = 0;
    int nx, ny;
    int dx[8] = {1, -1, 0,  0, 1,  1, -1, -1};
@@ -95,11 +96,12 @@ void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]) {
 
 bool etatFutur(bool tableau[][LARGEUR_TABLEAU], unsigned i, unsigned j) {
    unsigned occurences = occ(tableau, j,i);
-
-   if (tableau[i][j]==1) {
-      return (occurences == 2 || occurences == 3) ? 1 : 0;
+   if (tableau[i][j]) {
+      return estDansIntervalle(NAISSANCE, occurences) || estDansIntervalle(SURVIS, occurences) ? 1 : 0 ;
+      
    } else {
-      return (occurences == 3) ? 1 : 0;
+      return estDansIntervalle(NAISSANCE, occurences) ? 1 : 0;
+      //return (occurences == 3) ? 1 : 0;
    }
 }
 

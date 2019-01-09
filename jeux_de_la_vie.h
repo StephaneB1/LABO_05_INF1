@@ -1,8 +1,13 @@
 #ifndef JEUX_DE_LA_VIE_H
 #define JEUX_DE_LA_VIE_H
 
+#include <vector>
+
 const size_t HAUTEUR_TABLEAU = 10;
 const size_t LARGEUR_TABLEAU = 11;
+
+const std::vector<int> NAISSANCE = {3};
+const std::vector<int> SURVIS = {2, 3};
 
 /**
  * @brief Gère la simulation
