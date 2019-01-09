@@ -43,12 +43,8 @@ void simulation() {
 
    while (true) {
       //TODO fonction pour afficher tableauPresent
-      for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) { //petit affichage de tableau utilisé pour tests
-         for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
-            cout << tableauPresent[i][j];
-         }
-         cout << endl;
-      }
+      afficherTableau(tableauPresent);
+      cout << endl;
 
       for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) {
          for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
@@ -59,29 +55,36 @@ void simulation() {
       copieTableau(tableauPresent, tableauFutur, HAUTEUR_TABLEAU, LARGEUR_TABLEAU);
    }
 }
+
 const unsigned VIE = 3; //TODO intervalle
 
-unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y){
-   
-   int dx[8] = {1, -1, 0,  0, 1,  1, -1, -1};
-   int dy[8] = {0,  0, 1, -1, 1, -1,  1, -1};
-   
+unsigned occ(const bool tab[][LARGEUR_TABLEAU], size_t x, size_t y) {
+
+   int dx[8] = {1, -1, 0, 0, 1, 1, -1, -1};
+   int dy[8] = {0, 0, 1, -1, 1, -1, 1, -1};
+
    unsigned nb_cases_voisines = 0;
    int nx, ny;
-   for(int i = 0; i < 8; ++i){
+   for (int i = 0; i < 8; ++i) {
       nx = x + dx[i];
       ny = y + dy[i];
-      if(nx < LARGEUR_TABLEAU && nx >= 0 && ny >= 0 && ny < HAUTEUR_TABLEAU){
-         if(tab[ny][nx] == 1){
+      if (nx < LARGEUR_TABLEAU && nx >= 0 && ny >= 0 && ny < HAUTEUR_TABLEAU) {
+         if (tab[ny][nx] == 1) {
             nb_cases_voisines++;
          }
       }
    }
-   
    return nb_cases_voisines;
-   
 }
 
+void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]) {
+   for (size_t i = 0; i < HAUTEUR_TABLEAU; i++) {
+      for (size_t j = 0; j < LARGEUR_TABLEAU; j++) {
+         cout << (tableau[i][j] ? " X " : " . ");
+      }
+      cout << endl;
+   }
+}
 
 void copieTableau(bool tableau1[][LARGEUR_TABLEAU], bool tableau2[][LARGEUR_TABLEAU], unsigned hauteur, unsigned largeur) {
 

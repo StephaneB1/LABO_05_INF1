@@ -18,5 +18,7 @@ void simulation();
  */
 void copieTableau(bool tableau1[][LARGEUR_TABLEAU],bool tableau2[][LARGEUR_TABLEAU], unsigned hauteur, unsigned largeur);
 
+void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]);
+
 #endif /* JEUX_DE_LA_VIE_H */
 
