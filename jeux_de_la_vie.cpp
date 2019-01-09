@@ -37,7 +37,7 @@ void simulation() {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
    };
 
-   vector < vector<bool>> tableauFutur = tableauPresent;
+   vector < vector<bool>> tableauFutur(tableauPresent.size(),vector<bool>(tableauPresent[0].size()));
 
    while (true) {
       //TODO fonction pour afficher tableauPresent
