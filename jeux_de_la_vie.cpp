@@ -16,6 +16,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <algorithm>
+#include <vector>
 #include "jeux_de_la_vie.h"
 
 using namespace std;
@@ -26,7 +27,9 @@ bool contains(vector<int> const &V, const int &x);
 
 void simulation() {
 
-   bool tableauPresent[][LARGEUR_TABLEAU] = {
+   const unsigned nombreGenerations = 11;
+   
+   vector <vector<bool>> tableauPresent = {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -36,35 +39,27 @@ void simulation() {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
    };
 
-   bool tableauFutur[HAUTEUR_TABLEAU][LARGEUR_TABLEAU];
+   vector <vector<bool>> tableauFutur(tableauPresent.size(), vector<bool>(tableauPresent[0].size()));
 
-   while (true) {
+   for (unsigned n = 0; n < nombreGenerations; n++) {
       //TODO fonction pour afficher tableauPresent
       afficherTableau(tableauPresent);
       cout << endl;
 
-      for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) {
-         for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
-            tableauFutur[i][j] = etatFutur(tableauPresent, i, j); //TODO la fonction qui me dit quoi mettre dans le tableauFutur
+      for (unsigned i = 0; i < tableauPresent.size(); i++) {
+         for (unsigned j = 0; j < tableauPresent[0].size(); j++) {
+            tableauFutur[i][j] = etatFutur(tableauPresent, i, j);
          }
       }
       //Ici utiliser la classe Vector nous simplifierait la tâche
-      copieTableau(tableauPresent, tableauFutur);
-      //Sleep(1000);
+      tableauPresent = tableauFutur;
    }
 }
 
-bool estDansIntervalle(const vector<int> &V, const unsigned val){
-   for(auto i = V.begin(); i != V.end(); ++i){
-      if(val == *i){
-         return true;
-      }
-   }
-   return false;
-}
+unsigned occ(const vector < vector<bool>>&tableau, size_t x, size_t y) {
 
 
 unsigned occ(const bool tab[][LARGEUR_TABLEAU], unsigned x, unsigned y){
@@ -85,9 +80,9 @@ unsigned occ(const bool tab[][LARGEUR_TABLEAU], unsigned x, unsigned y){
    return nb_cases_voisines;
 }
 
-void afficherTableau(const bool tableau[][LARGEUR_TABLEAU]) {
-   for (size_t i = 0; i < HAUTEUR_TABLEAU; i++) {
-      for (size_t j = 0; j < LARGEUR_TABLEAU; j++) {
+void afficherTableau(const vector < vector<bool>>&tableau) {
+   for (size_t i = 0; i < tableau.size(); i++) {
+      for (size_t j = 0; j < tableau[0].size(); j++) {
          cout << (tableau[i][j] ? " X " : " . ");
       }
       cout << endl;
@@ -102,14 +97,5 @@ bool etatFutur(bool tableau[][LARGEUR_TABLEAU], unsigned i, unsigned j) {
    } else {
       return estDansIntervalle(NAISSANCE, occurences) ? 1 : 0;
       //return (occurences == 3) ? 1 : 0;
-   }
-}
-
-void copieTableau(bool tableau1[][LARGEUR_TABLEAU], bool tableau2[][LARGEUR_TABLEAU]) {
-
-   for (unsigned i = 0; i < HAUTEUR_TABLEAU; i++) {
-      for (unsigned j = 0; j < LARGEUR_TABLEAU; j++) {
-         tableau1[i][j] = tableau2[i][j];
-      }
    }
 }
