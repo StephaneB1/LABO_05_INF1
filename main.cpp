@@ -12,17 +12,14 @@
                suivante. Une cellule peut "naître" si celle-ci est la voisine de Y
                cellules habitées à la génération suivante.
                Pour un nombre N de générations donnés, les cellules de la grille vont
-               évoluer (c-à-d être habitées, disparaitre ou naître) N fois.        
-   
-               
-              
-
+               évoluer (c-à-d être habitées, disparaitre ou naître) N fois.
+               Le programme est insipiré du jeux de la vie, inventé par J.H. Conway.        
+      
  Remarque(s) : - Les cellules considérés comme voisines sont celles situés en haut/bas,
                  à gauche/droite ainsi que celles situés dans les diagonales,
                  à l'exception des cellules situés aux extrêmirés de la grille.
                - Dans la représentation de la grille, 2 caractères sont représentés, 
-                 l'un étant un cellule habitée et l'autre une cellule vide.
-                
+                 l'un étant un cellule habitée et l'autre une cellule vide.      
 
  Compilateur : - Apple LLVM version 9.0.0 (clang-900.0.39.2)
                - MinGW-g++ 6.3.0

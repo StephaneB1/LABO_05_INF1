@@ -3,11 +3,13 @@
 
 #include <vector>
 
+// Nombres de cellule voisines menant à la naissance d'une cellulle jusque là inhabitée
 const std::vector<unsigned> REGLE_NAISSANCE = {3};
+// Nombres de cellules voisine qu'une cellule habitée doit avoir pour survivre
 const std::vector<unsigned> REGLE_SURVIS = {2, 3};
 
 /**
- * @brief Gère la simulation du jeu de la vie
+ * @brief Lance les simulation du jeux de la vie.
  * @param nombreSimulations : nombre de générations à afficher
  */
 void simulation(unsigned nombreSimulations);

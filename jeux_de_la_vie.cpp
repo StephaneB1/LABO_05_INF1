@@ -5,7 +5,8 @@
  Auteur(s)   : BOUSBAA Eric, BOTTIN Stéphane, FERRARI Teo
  Date        : 10.01.2019
 
- But         : 
+ But         : Met à disposition des fonctions ayant pour but de simuler le jeux de 
+               la vie.         
 
  Remarque(s) : - Les valeurs définissant si une cellule doit naître ou survivre sont 
                  défini dans des listes constantes. Chaque valeur de la liste 
@@ -64,24 +65,24 @@ bool etatFutur(const vector<vector<bool>>&tableau, unsigned i, unsigned j);
 unsigned occ(const vector <vector<bool>>&tableau, unsigned x, unsigned y);
 
 /**
- * @brief verifies qu'une valeur est dans un interval donne
- * @param V : interval dans lequel on teste 
- * @param val : valeur a trouver dans l'interval
- * @return si la valeur se trouve dans l'interval ou non
+ * @brief verifies qu'une valeur est dans un intervalle donnée
+ * @param V : Liste de valeurs devant être vérifiés
+ * @param val : valeur à trouver dans l'intervalle
+ * @return si la valeur se trouve dans l'intervalle ou non
  */
 bool estDansIntervalle(const vector<unsigned> &V, const unsigned val);
 
 const unsigned NOMBRE_CASES_VOISINES = 8;
 
 void simulation(unsigned nombreSimulations) {
-
+   
    vector <vector<bool>> tableauPresent = {
-      {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-      {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -109,12 +110,16 @@ void simulation(unsigned nombreSimulations) {
 unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y) {
    unsigned nbCasesVoisines = 0;
    int positionAbsolueX, postitionAbsolueY;
+   // Tableau d'indices autour d'une cellule, permettant d'accéder au contenu de celles-ci
    int positionRelativeX[] = {1, -1, 0, 0, 1, 1, -1, -1};
    int positionRelativeY[] = {0, 0, 1, -1, 1, -1, 1, -1};
 
    for (int i = 0; i < (int) NOMBRE_CASES_VOISINES; ++i) {
+      // Afin d'obtenir les réelles positions autour de la cellule à calculer, 
+      // il suffit d'additionner la position relative avec la relation courante.
       positionAbsolueX = (int) x + positionRelativeX[i];
       postitionAbsolueY = (int) y + positionRelativeY[i];
+      // Les cellules hors de la grille ne sont pas vérifiés
       if (positionAbsolueX < (int) tableau[0].size() && positionAbsolueX >= 0 &&
               postitionAbsolueY >= 0 && postitionAbsolueY < (int) tableau.size()) {
          if (tableau[(size_t) postitionAbsolueY][(size_t) positionAbsolueX] == 1) {
