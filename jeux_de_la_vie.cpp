@@ -8,16 +8,16 @@
  But         : 
 
  Remarque(s) : - Les valeurs définissant si une cellule doit naître ou survivre sont 
-                 défini dans des listes constantes. Chaque valeur de la liste représente
-                 une condition à laquelle la règle associé est valide.
+                 défini dans des listes constantes. Chaque valeur de la liste 
+                 représente une condition à laquelle la règle associé est valide.
                - Afin de modifier la configuration initiale du tableau de base, 
-                 il suffit de placer un 1 dans toute cellule voulant être initialement
-                 habitée.
+                 il suffit de placer un 1 dans toute cellule voulant être 
+                 initialement habitée.
                - La taille du tableau initial peut être changé en ajoutant/supprimant
                  les lignes/colonnes dans son initialisation.
                - Toutes les altération d'une génération de cellules à une autre 
-                 s'effectuent simultanément. Càd qu'il n'y a pas d'ordre de priorité entre
-                 vivre et mourir.
+                 s'effectuent simultanément. Càd qu'il n'y a pas d'ordre de priorité 
+                 entre vivre et mourir.
 
  Compilateur : - Apple LLVM version 9.0.0 (clang-900.0.39.2)
                - MinGW-g++ 6.3.0
@@ -41,7 +41,8 @@ const char CARACTERE_MORT = '.';
  * @param caractereVie : caraectere representant un cellule
  * @param caractereMort : caraectere representant un abscence de cellule
  */
-void afficherTableau(const vector<vector<bool>>&tableau, char caractereVie, char caractereMort);
+void afficherTableau(const vector<vector<bool>>&tableau,
+        char caractereVie, char caractereMort);
 
 /**
  * @brief fonction qui retourne l'état futur d'une case specifique du tableau 
@@ -60,7 +61,7 @@ bool etatFutur(const vector<vector<bool>>&tableau, unsigned i, unsigned j);
  * @param y : position verticale de la case a tester
  * @return le nombre d'occurences de cellules autour de la cellule donnee
  */
-unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y);
+unsigned occ(const vector <vector<bool>>&tableau, unsigned x, unsigned y);
 
 /**
  * @brief verifies qu'une valeur est dans un interval donne
@@ -74,20 +75,20 @@ const unsigned NOMBRE_CASES_VOISINES = 8;
 
 void simulation(unsigned nombreSimulations) {
 
-   vector < vector<bool>> tableauPresent = {
+   vector <vector<bool>> tableauPresent = {
+      {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+      {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
    };
 
-   vector < vector<bool>> tableauFutur(tableauPresent.size(),
+   vector <vector<bool>> tableauFutur(tableauPresent.size(),
            vector<bool>(tableauPresent[0].size()));
 
    for (unsigned n = 1; n <= nombreSimulations; ++n) {
@@ -105,7 +106,7 @@ void simulation(unsigned nombreSimulations) {
    }
 }
 
-unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y) {
+unsigned occ(const vector <vector<bool>>&tableau, unsigned x, unsigned y) {
    unsigned nb_cases_voisines = 0;
    int positionAbsolueX, postitionAbsolueY;
    int positionRelativeX[NOMBRE_CASES_VOISINES] = {1, -1, 0, 0, 1, 1, -1, -1};
@@ -124,7 +125,7 @@ unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y) {
    return nb_cases_voisines;
 }
 
-void afficherTableau(const vector < vector<bool>>&tableau, char caractereVie,
+void afficherTableau(const vector <vector<bool>>&tableau, char caractereVie,
         char caractereMort) {
    for (size_t i = 0; i < tableau.size(); ++i) {
       for (size_t j = 0; j < tableau[0].size(); ++j) {
@@ -143,7 +144,7 @@ bool estDansIntervalle(const vector<unsigned> &V, const unsigned val) {
    return false;
 }
 
-bool etatFutur(const vector < vector<bool>>&tableau, unsigned i, unsigned j) {
+bool etatFutur(const vector <vector<bool>>&tableau, unsigned i, unsigned j) {
    unsigned occurences = occ(tableau, j, i);
    if (tableau[i][j]) {
       return estDansIntervalle(REGLE_NAISSANCE, occurences) ||
