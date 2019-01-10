@@ -16,7 +16,8 @@
  *             - La taille du tableau initial peut être changé en ajoutant/supprimant
  *               les lignes/colonnes dans son initialisation.
  *             - Toutes les altération d'une génération de cellules à une autre s'effectuent
- *               simultanément. Càd qu'il n'y a pas d'ordre entre notre
+ *               simultanément. Càd qu'il n'y a pas d'ordre de priorité entre
+ *               vivre et mourir.
 
  Compilateur : - Apple LLVM version 9.0.0 (clang-900.0.39.2)
  *             - MinGW-g++ 6.3.0
@@ -77,14 +78,14 @@ void simulation(unsigned nombreSimulations) {
 
    vector <vector<bool>> tableauFutur(tableauPresent.size(), vector<bool>(tableauPresent[0].size()));
 
-   for (unsigned n = 1; n <= nombreSimulations; n++) {
+   for (unsigned n = 1; n <= nombreSimulations; ++n) {
       
       cout << "Génération : " << n << endl;
       afficherTableau(tableauPresent);
       cout << endl;
 
-      for (unsigned i = 0; i < tableauPresent.size(); i++) {
-         for (unsigned j = 0; j < tableauPresent[0].size(); j++) {
+      for (unsigned i = 0; i < tableauPresent.size(); ++i) {
+         for (unsigned j = 0; j < tableauPresent[0].size(); ++j) {
             tableauFutur[i][j] = etatFutur(tableauPresent, i, j);
          }
       }
@@ -112,8 +113,8 @@ unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y){
 }
 
 void afficherTableau(const vector < vector<bool>>&tableau) {
-   for (size_t i = 0; i < tableau.size(); i++) {
-      for (size_t j = 0; j < tableau[0].size(); j++) {
+   for (size_t i = 0; i < tableau.size(); ++i) {
+      for (size_t j = 0; j < tableau[0].size(); ++j) {
          cout << (tableau[i][j] ? " X " : " . ");
       }
       cout << endl;
