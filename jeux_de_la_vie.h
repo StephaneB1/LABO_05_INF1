@@ -12,7 +12,5 @@ const std::vector<unsigned> REGLE_SURVIS = {2, 3};
  */
 void simulation(unsigned nombreSimulations);
 
-
-
 #endif /* JEUX_DE_LA_VIE_H */
 
