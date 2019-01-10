@@ -34,7 +34,7 @@
 using namespace std;
 
 int main() {
-   const unsigned NOMBRE_GENERATIONS = 12;
+   const unsigned NOMBRE_GENERATIONS = 40;
    
    simulation(NOMBRE_GENERATIONS);
    cout << "Appuyez sur une touche pour continuer... ";
