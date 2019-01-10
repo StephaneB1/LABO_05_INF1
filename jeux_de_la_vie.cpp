@@ -37,7 +37,7 @@ bool etatFutur(const std::vector<vector<bool>>& tableau, unsigned i, unsigned j)
 
 unsigned occ(const vector < std::vector<bool>>&tableau, unsigned x, unsigned y);
 
-bool contains(vector<int> const &V, const int &x);
+bool estDansIntervalle(const vector<unsigned> &V, const unsigned val);
 
 const unsigned NOMBRE_CASES_VOISINES = 8;
 
@@ -99,9 +99,7 @@ void afficherTableau(const vector < vector<bool>>&tableau) {
       }
       cout << endl;
    }
-}
-
-bool estDansIntervalle(const vector<unsigned> &V, const unsigned val){
+}bool estDansIntervalle(const vector<unsigned> &V, const unsigned val){
    for(auto i = V.begin(); i != V.end(); ++i){
       if(val == *i){
          return true;
