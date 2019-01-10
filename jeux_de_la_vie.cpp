@@ -8,19 +8,19 @@
  But         : 
 
  Remarque(s) : - Les valeurs définissant si une cellule doit naître ou survivre sont 
- *               défini dans des listes constantes. Chaque valeur de la liste représente
- *               une condition à laquelle la règle associé est valide.
- *             - Afin de modifier la configuration initiale du tableau de base, 
- *               il suffit de placer un 1 dans toute cellule voulant être initialement
- *               habitée.
- *             - La taille du tableau initial peut être changé en ajoutant/supprimant
- *               les lignes/colonnes dans son initialisation.
- *             - Toutes les altération d'une génération de cellules à une autre s'effectuent
- *               simultanément. Càd qu'il n'y a pas d'ordre de priorité entre
- *               vivre et mourir.
+                 défini dans des listes constantes. Chaque valeur de la liste représente
+                 une condition à laquelle la règle associé est valide.
+               - Afin de modifier la configuration initiale du tableau de base, 
+                 il suffit de placer un 1 dans toute cellule voulant être initialement
+                 habitée.
+               - La taille du tableau initial peut être changé en ajoutant/supprimant
+                 les lignes/colonnes dans son initialisation.
+               - Toutes les altération d'une génération de cellules à une autre 
+                 s'effectuent simultanément. Càd qu'il n'y a pas d'ordre de priorité entre
+                 vivre et mourir.
 
  Compilateur : - Apple LLVM version 9.0.0 (clang-900.0.39.2)
- *             - MinGW-g++ 6.3.0
+               - MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
 
@@ -87,11 +87,11 @@ void simulation(unsigned nombreSimulations) {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
    };
 
-   vector < vector<bool>> tableauFutur(tableauPresent.size(), vector<bool>(tableauPresent[0].size()));
-
+   vector < vector<bool>> tableauFutur(tableauPresent.size(),
+           vector<bool>(tableauPresent[0].size()));
 
    for (unsigned n = 1; n <= nombreSimulations; ++n) {
-      
+
       cout << "Generation : " << n << endl;
       afficherTableau(tableauPresent, CARACTERE_VIE, CARACTERE_MORT);
       cout << endl;
@@ -101,7 +101,6 @@ void simulation(unsigned nombreSimulations) {
             tableauFutur[i][j] = etatFutur(tableauPresent, i, j);
          }
       }
-
       tableauPresent = tableauFutur;
    }
 }
@@ -115,7 +114,8 @@ unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y) {
    for (int i = 0; i < (int) NOMBRE_CASES_VOISINES; ++i) {
       positionAbsolueX = (int) x + positionRelativeX[i];
       postitionAbsolueY = (int) y + positionRelativeY[i];
-      if (positionAbsolueX < (int) tableau[0].size() && positionAbsolueX >= 0 && postitionAbsolueY >= 0 && postitionAbsolueY < (int) tableau.size()) {
+      if (positionAbsolueX < (int) tableau[0].size() && positionAbsolueX >= 0 &&
+              postitionAbsolueY >= 0 && postitionAbsolueY < (int) tableau.size()) {
          if (tableau[(size_t) postitionAbsolueY][(size_t) positionAbsolueX] == 1) {
             nb_cases_voisines++;
          }
@@ -124,11 +124,11 @@ unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y) {
    return nb_cases_voisines;
 }
 
-void afficherTableau(const vector < vector<bool>>&tableau, char caractereVie, char caractereMort) {
+void afficherTableau(const vector < vector<bool>>&tableau, char caractereVie,
+        char caractereMort) {
    for (size_t i = 0; i < tableau.size(); ++i) {
       for (size_t j = 0; j < tableau[0].size(); ++j) {
          cout << " " << (tableau[i][j] ? caractereVie : caractereMort) << " ";
-
       }
       cout << endl;
    }
@@ -148,9 +148,7 @@ bool etatFutur(const vector < vector<bool>>&tableau, unsigned i, unsigned j) {
    if (tableau[i][j]) {
       return estDansIntervalle(REGLE_NAISSANCE, occurences) ||
               estDansIntervalle(REGLE_SURVIS, occurences) ? 1 : 0;
-
    } else {
       return estDansIntervalle(REGLE_NAISSANCE, occurences) ? 1 : 0;
-
    }
 }
