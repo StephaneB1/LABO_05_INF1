@@ -48,8 +48,8 @@ void simulation(unsigned nombreSimulations) {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-      {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -76,15 +76,15 @@ void simulation(unsigned nombreSimulations) {
 
 unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y){
    unsigned nb_cases_voisines = 0;
-   int nx, ny;
-   int dx[8] = {1, -1, 0,  0, 1,  1, -1, -1};
-   int dy[8] = {0,  0, 1, -1, 1, -1,  1, -1};
+   int positionAbsolueX, postitionAbsolueY;
+   int positionRelativeX[8] = {1, -1, 0,  0, 1,  1, -1, -1};
+   int positionRelativeY[8] = {0,  0, 1, -1, 1, -1,  1, -1};
    
    for(int i = 0; i < (int) NOMBRE_CASES_VOISINES; ++i){
-      nx = (int) x + dx[i];
-      ny = (int) y + dy[i];
-      if (nx < (int) tableau[0].size() && nx >= 0 && ny >= 0 && ny < (int) tableau.size()) {
-         if (tableau[(size_t)ny][(size_t)nx] == 1) {
+      positionAbsolueX = (int) x + positionRelativeX[i];
+      postitionAbsolueY = (int) y + positionRelativeY[i];
+      if (positionAbsolueX < (int) tableau[0].size() && positionAbsolueX >= 0 && postitionAbsolueY >= 0 && postitionAbsolueY < (int) tableau.size()) {
+         if (tableau[(size_t)postitionAbsolueY][(size_t)positionAbsolueX] == 1) {
             nb_cases_voisines++;
          }
       }
