@@ -1,15 +1,25 @@
 /*
  -----------------------------------------------------------------------------------
  Laboratoire : 05
- Fichier     : main.cpp
- Auteur(s)   : <prÈnom> <nom>
- Date        : <jj.mm.aaaa>
+ Fichier     : jeux_de_la_vie.cpp
+ Auteur(s)   : BOUSBAA Eric, BOTTIN Stéphane, FERRARI Teo
+ Date        : 10.01.2019
 
- But         : <à competer>
+ But         : 
 
- Remarque(s) : <à completer>
+ Remarque(s) : - Les valeurs définissant si une cellule doit naître ou survivre sont 
+ *               défini dans des listes constantes. Chaque valeur de la liste représente
+ *               une condition à laquelle la règle associé est valide.
+ *             - Afin de modifier la configuration initiale du tableau de base, 
+ *               il suffit de placer un 1 dans toute cellule voulant être initialement
+ *               habitée.
+ *             - La taille du tableau initial peut être changé en ajoutant/supprimant
+ *               les lignes/colonnes dans son initialisation.
+ *             - Toutes les altération d'une génération de cellules à une autre s'effectuent
+ *               simultanément. Càd qu'il n'y a pas d'ordre entre notre
 
- Compilateur : MinGW-g++ <x.y.z>
+ Compilateur : - Apple LLVM version 9.0.0 (clang-900.0.39.2)
+ *             - MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
 
@@ -49,7 +59,7 @@ void simulation(unsigned nombreSimulations) {
    vector <vector<bool>> tableauFutur(tableauPresent.size(), vector<bool>(tableauPresent[0].size()));
 
    for (unsigned n = 1; n <= nombreSimulations; n++) {
-      //TODO fonction pour afficher tableauPresent
+      
       cout << "Génération : " << n << endl;
       afficherTableau(tableauPresent);
       cout << endl;
@@ -59,7 +69,7 @@ void simulation(unsigned nombreSimulations) {
             tableauFutur[i][j] = etatFutur(tableauPresent, i, j);
          }
       }
-      //Ici utiliser la classe Vector nous simplifierait la tâche
+      
       tableauPresent = tableauFutur;
    }
 }
