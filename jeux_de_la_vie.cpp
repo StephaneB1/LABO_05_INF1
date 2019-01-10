@@ -30,12 +30,17 @@
 
 using namespace std;
 
+const char CARACTERE_VIE = 'X';
+const char CARACTERE_MORT = '.';
+
 /**
  * @brief Affiche le tableau représentant le jeu de la vie en utilisant des 
  * charactères pour représenter les états de vie et de mort des cellules
  * @param tableau : tableau booleen a afficher
+ * @param caractereVie : caraectere representant un cellule
+ * @param caractereMort : caraectere representant un abscence de cellule
  */
-void afficherTableau(const vector<vector<bool>>& tableau);
+void afficherTableau(const vector<vector<bool>>&tableau, char caractereVie, char caractereMort);
 
 /**
  * @brief fonction qui retourne l'état futur d'une case specifique du tableau 
@@ -45,24 +50,30 @@ void afficherTableau(const vector<vector<bool>>& tableau);
  * @param j : position horizontale de la case a tester
  * @return : l'etat dans lequel devrait etre la case par rapport au cases l'entourant
  */
-bool etatFutur(const std::vector<vector<bool>>& tableau, unsigned i, unsigned j);
+bool etatFutur(const vector<vector<bool>>&tableau, unsigned i, unsigned j);
 
 /**
  * @brief fonction verifiant les occurences de cellules autour d'une cellule donnee
  * @param tableau : tableau booleen representant le jeu de la vie
  * @param x : position horizontale de la case a tester
  * @param y : position verticale de la case a tester
- * @return 
+ * @return le nombre d'occurences de cellules autour de la cellule donnee
  */
-unsigned occ(const vector < std::vector<bool>>&tableau, unsigned x, unsigned y);
+unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y);
 
+/**
+ * @brief verifies qu'une valeur est dans un interval donne
+ * @param V : interval dans lequel on teste 
+ * @param val : valeur a trouver dans l'interval
+ * @return si la valeur se trouve dans l'interval ou non
+ */
 bool estDansIntervalle(const vector<unsigned> &V, const unsigned val);
 
 const unsigned NOMBRE_CASES_VOISINES = 8;
 
 void simulation(unsigned nombreSimulations) {
-   
-   vector <vector<bool>> tableauPresent = {
+
+   vector < vector<bool>> tableauPresent = {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -75,12 +86,12 @@ void simulation(unsigned nombreSimulations) {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
    };
 
-   vector <vector<bool>> tableauFutur(tableauPresent.size(), vector<bool>(tableauPresent[0].size()));
+   vector < vector<bool>> tableauFutur(tableauPresent.size(), vector<bool>(tableauPresent[0].size()));
 
    for (unsigned n = 1; n <= nombreSimulations; n++) {
-      
-      cout << "Génération : " << n << endl;
-      afficherTableau(tableauPresent);
+
+      cout << "Generation : " << n << endl;
+      afficherTableau(tableauPresent, CARACTERE_VIE, CARACTERE_MORT);
       cout << endl;
 
       for (unsigned i = 0; i < tableauPresent.size(); i++) {
@@ -88,22 +99,22 @@ void simulation(unsigned nombreSimulations) {
             tableauFutur[i][j] = etatFutur(tableauPresent, i, j);
          }
       }
-      
+
       tableauPresent = tableauFutur;
    }
 }
 
-unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y){
+unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y) {
    unsigned nb_cases_voisines = 0;
    int positionAbsolueX, postitionAbsolueY;
-   int positionRelativeX[8] = {1, -1, 0,  0, 1,  1, -1, -1};
-   int positionRelativeY[8] = {0,  0, 1, -1, 1, -1,  1, -1};
-   
-   for(int i = 0; i < (int) NOMBRE_CASES_VOISINES; ++i){
+   int positionRelativeX[NOMBRE_CASES_VOISINES] = {1, -1, 0, 0, 1, 1, -1, -1};
+   int positionRelativeY[NOMBRE_CASES_VOISINES] = {0, 0, 1, -1, 1, -1, 1, -1};
+
+   for (int i = 0; i < (int) NOMBRE_CASES_VOISINES; ++i) {
       positionAbsolueX = (int) x + positionRelativeX[i];
       postitionAbsolueY = (int) y + positionRelativeY[i];
       if (positionAbsolueX < (int) tableau[0].size() && positionAbsolueX >= 0 && postitionAbsolueY >= 0 && postitionAbsolueY < (int) tableau.size()) {
-         if (tableau[(size_t)postitionAbsolueY][(size_t)positionAbsolueX] == 1) {
+         if (tableau[(size_t) postitionAbsolueY][(size_t) positionAbsolueX] == 1) {
             nb_cases_voisines++;
          }
       }
@@ -111,16 +122,17 @@ unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y){
    return nb_cases_voisines;
 }
 
-void afficherTableau(const vector < vector<bool>>&tableau) {
+void afficherTableau(const vector < vector<bool>>&tableau, char caractereVie, char caractereMort) {
    for (size_t i = 0; i < tableau.size(); i++) {
       for (size_t j = 0; j < tableau[0].size(); j++) {
-         cout << (tableau[i][j] ? " X " : " . ");
+         cout << " " << (tableau[i][j] ? caractereVie : caractereMort) << " ";
       }
       cout << endl;
    }
-}bool estDansIntervalle(const vector<unsigned> &V, const unsigned val){
-   for(auto i = V.begin(); i != V.end(); ++i){
-      if(val == *i){
+}
+bool estDansIntervalle(const vector<unsigned> &V, const unsigned val) {
+   for (auto i = V.begin(); i != V.end(); ++i) {
+      if (val == *i) {
          return true;
       }
    }
@@ -128,13 +140,13 @@ void afficherTableau(const vector < vector<bool>>&tableau) {
 }
 
 bool etatFutur(const vector < vector<bool>>&tableau, unsigned i, unsigned j) {
-   unsigned occurences = occ(tableau, j,i);
+   unsigned occurences = occ(tableau, j, i);
    if (tableau[i][j]) {
-      return estDansIntervalle(REGLE_NAISSANCE, occurences) || 
-             estDansIntervalle(REGLE_SURVIS, occurences) ? 1 : 0 ;
-      
+      return estDansIntervalle(REGLE_NAISSANCE, occurences) ||
+              estDansIntervalle(REGLE_SURVIS, occurences) ? 1 : 0;
+
    } else {
       return estDansIntervalle(REGLE_NAISSANCE, occurences) ? 1 : 0;
- 
+
    }
 }
