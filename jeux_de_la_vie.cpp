@@ -16,15 +16,34 @@
 #include <cstdlib>
 #include <iostream>
 #include <algorithm>
-#include <vector>
 #include "jeux_de_la_vie.h"
 
 using namespace std;
 
+/**
+ * @brief Affiche le tableau représentant le jeu de la vie en utilisant des 
+ * charactères pour représenter les états de vie et de mort des cellules
+ * @param tableau : tableau booleen a afficher
+ */
 void afficherTableau(const vector<vector<bool>>& tableau);
 
+/**
+ * @brief fonction qui retourne l'état futur d'une case specifique du tableau 
+ * representant le jeu de la vie
+ * @param tableau : tableau booleen representant le jeu de la vie
+ * @param i : position verticale de la case a tester
+ * @param j : position horizontale de la case a tester
+ * @return : l'etat dans lequel devrait etre la case par rapport au cases l'entourant
+ */
 bool etatFutur(const std::vector<vector<bool>>& tableau, unsigned i, unsigned j);
 
+/**
+ * @brief fonction verifiant les occurences de cellules autour d'une cellule donnee
+ * @param tableau : tableau booleen representant le jeu de la vie
+ * @param x : position horizontale de la case a tester
+ * @param y : position verticale de la case a tester
+ * @return 
+ */
 unsigned occ(const vector < std::vector<bool>>&tableau, unsigned x, unsigned y);
 
 bool contains(vector<int> const &V, const int &x);
