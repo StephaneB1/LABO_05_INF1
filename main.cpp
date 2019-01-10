@@ -14,8 +14,7 @@
  *             Pour un nombre N de générations donnés, les cellules de la grille vont
  *             évoluer (c-à-d être habitées, disparaitre ou naître) N fois.        
  * 
- *             
- *            
+ *           
 
  Remarque(s) : - Les cellules considérés comme voisines sont celles situés en haut/bas,
  *               à gauche/droite ainsi que celles situés dans les diagonales,

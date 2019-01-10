@@ -107,21 +107,21 @@ void simulation(unsigned nombreSimulations) {
 }
 
 unsigned occ(const vector < vector<bool>>&tableau, unsigned x, unsigned y) {
-   unsigned nb_cases_voisines = 0;
+   unsigned nbCasesVoisines = 0;
    int positionAbsolueX, postitionAbsolueY;
-   int positionRelativeX[NOMBRE_CASES_VOISINES] = {1, -1, 0, 0, 1, 1, -1, -1};
-   int positionRelativeY[NOMBRE_CASES_VOISINES] = {0, 0, 1, -1, 1, -1, 1, -1};
+   int positionRelativeX[] = {1, -1, 0, 0, 1, 1, -1, -1};
+   int positionRelativeY[] = {0, 0, 1, -1, 1, -1, 1, -1};
 
    for (int i = 0; i < (int) NOMBRE_CASES_VOISINES; ++i) {
       positionAbsolueX = (int) x + positionRelativeX[i];
       postitionAbsolueY = (int) y + positionRelativeY[i];
       if (positionAbsolueX < (int) tableau[0].size() && positionAbsolueX >= 0 && postitionAbsolueY >= 0 && postitionAbsolueY < (int) tableau.size()) {
          if (tableau[(size_t) postitionAbsolueY][(size_t) positionAbsolueX] == 1) {
-            nb_cases_voisines++;
+            nbCasesVoisines++;
          }
       }
    }
-   return nb_cases_voisines;
+   return nbCasesVoisines;
 }
 
 void afficherTableau(const vector < vector<bool>>&tableau, char caractereVie, char caractereMort) {
